@@ -1,6 +1,7 @@
 import React from 'react';
 import FormInput from '../../molecules/FormInput';
-import { Box, Typography, makeStyles, Paper } from '@material-ui/core';
+import ScrollToButton from '../../atoms/ScrollToButton';
+import { Box, Typography, makeStyles, Paper, Button } from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -11,7 +12,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const SurveyForm = ({ survey }) => {
+const SurveyForm = ({ survey, handleSubmit }) => {
   const classes = useStyles();
 
   const handleInputChange = val => {
@@ -37,6 +38,10 @@ const SurveyForm = ({ survey }) => {
           onChange={handleInputChange}
         />
       ))}
+      <Button variant="contained" color="primary" onClick={handleSubmit}>
+        Отправить
+      </Button>
+      <ScrollToButton />
     </Box>
   );
 };

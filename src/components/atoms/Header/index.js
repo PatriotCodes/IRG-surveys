@@ -1,5 +1,6 @@
 import React from 'react';
-import { AppBar, Toolbar, makeStyles } from '@material-ui/core';
+import logoSrc from '../../../assets/images/logo.png';
+import { AppBar, Toolbar, makeStyles, Typography, Box } from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
   header: {
@@ -9,14 +10,28 @@ const useStyles = makeStyles(theme => ({
       minHeight: theme.sizes.headerHeight,
     },
   },
+  textBox: {
+    marginLeft: 8,
+    '& > p': {
+      fontSize: '0.8em',
+      lineHeight: 1,
+    },
+  },
 }));
 
 const Header = () => {
   const classes = useStyles();
 
   return (
-    <AppBar className={classes.header}>
-      <Toolbar></Toolbar>
+    <AppBar className={classes.header} component="header">
+      <Toolbar>
+        <img src={logoSrc} width={42} height={42} />
+        <Box className={classes.textBox}>
+          <Typography>Independent</Typography>
+          <Typography>Research</Typography>
+          <Typography>Group</Typography>
+        </Box>
+      </Toolbar>
     </AppBar>
   );
 };
