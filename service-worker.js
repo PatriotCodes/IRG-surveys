@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/IRG-surveys/precache-manifest.713053a1ebac8c50e00f4245b4ff1605.js"
+  "/IRG-surveys/precache-manifest.c54ba1f8c5d4b8ed68ed5b85d420f868.js"
 );
 
 self.addEventListener('message', (event) => {
