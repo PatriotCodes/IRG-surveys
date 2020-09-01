@@ -1,4 +1,5 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import { Box, Typography, Button, makeStyles } from '@material-ui/core';
 import DoneIcon from '@material-ui/icons/Done';
 
@@ -15,9 +16,14 @@ const useStyles = makeStyles(theme => ({
       margin: '16px 0',
     },
   },
+  button: {
+    margin: '16px 0 0 0',
+  },
 }));
 
 const SuccessScreen = ({ onStartNew }) => {
+  const history = useHistory();
+
   const classes = useStyles();
   return (
     <Box
@@ -29,9 +35,19 @@ const SuccessScreen = ({ onStartNew }) => {
     >
       <DoneIcon />
       <Typography component="h2">Ответ успешно записан</Typography>
-      <Button variant="contained" color="primary" onClick={onStartNew}>
-        Начать новый опрос
-      </Button>
+      <Box display="flex" flexDirection="column">
+        <Button
+          className={classes.button}
+          variant="contained"
+          color="primary"
+          onClick={() => history.push('/')}
+        >
+          Перейти к выбору опроса
+        </Button>
+        <Button className={classes.button} variant="contained" color="primary" onClick={onStartNew}>
+          Начать опрос заново
+        </Button>
+      </Box>
     </Box>
   );
 };

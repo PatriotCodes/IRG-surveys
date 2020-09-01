@@ -9,12 +9,16 @@ const useStyles = makeStyles(theme => ({
       height: theme.sizes.headerHeight,
       minHeight: theme.sizes.headerHeight,
     },
+    '& a': {
+      textDecoration: 'none!important',
+    },
   },
   textBox: {
     marginLeft: 8,
     '& > p': {
       fontSize: '0.8em',
       lineHeight: 1,
+      color: `${theme.palette.secondary.main}!important`,
     },
   },
 }));
@@ -25,11 +29,13 @@ const Header = () => {
   return (
     <AppBar className={classes.header} component="header">
       <Toolbar>
-        <img src={logoSrc} width={42} height={42} />
-        <Box className={classes.textBox}>
-          <Typography>Independent</Typography>
-          <Typography>Research</Typography>
-          <Typography>Group</Typography>
+        <Box display="flex" component="a" href="/">
+          <img src={logoSrc} width={42} height={42} alt="IRG" />
+          <Box className={classes.textBox}>
+            <Typography>Independent</Typography>
+            <Typography>Research</Typography>
+            <Typography>Group</Typography>
+          </Box>
         </Box>
       </Toolbar>
     </AppBar>
