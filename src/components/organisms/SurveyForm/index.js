@@ -15,10 +15,6 @@ const useStyles = makeStyles(theme => ({
 const SurveyForm = ({ survey, handleSubmit, onChange }) => {
   const classes = useStyles();
 
-  const handleInputChange = val => {
-    console.log(val);
-  };
-
   return (
     <Box className={classes.root}>
       <Paper variant="outlined">

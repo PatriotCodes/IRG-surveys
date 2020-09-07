@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from '../../../api/axios';
+import { INTERVIEWER_ID } from '../../../constants';
 import { LinearProgress } from '@material-ui/core';
 import SurveyForm from '../../organisms/SurveyForm';
 import convertToIBMSPSS, { CHECKED, UNCHECKED } from '../../../utils/convertToIBMSPSS';
@@ -17,7 +18,7 @@ const Survey = ({ match }) => {
       setSurvey(response.data);
       answerData = response.data.survey.map(q => ({
         type: q.type,
-        answers: q.answer ? Array.from(Array(q.answer.length)).map(_ => UNCHECKED) : ['""'],
+        answers: q.answer ? Array.from(Array(q.answer.length)).map(_ => UNCHECKED) : [''],
       }));
     });
   }, []);
@@ -68,7 +69,7 @@ const Survey = ({ match }) => {
         'results.php',
         {
           survey_id: match.params.survey_id,
-          interviewer_id: 13,
+          interviewer_id: INTERVIEWER_ID,
           time_start: timeStart,
           time_finish: Date.now(),
           location: {
