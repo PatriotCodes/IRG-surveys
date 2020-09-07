@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Container, makeStyles, ThemeProvider } from '@material-ui/core';
+import { BASE_ROUTE } from './constants';
 import customTheme from './styles/customTheme';
 import Main from './components/pages/Main';
 import Survey from './components/pages/Survey';
@@ -19,16 +20,16 @@ const App = () => {
 
   return (
     <ThemeProvider theme={customTheme}>
-      <Header position="sticky" />
-      <Container className={classes.root} maxWidth="md" component="main">
-        <Router>
+      <Router basename={BASE_ROUTE}>
+        <Header position="sticky" />
+        <Container className={classes.root} maxWidth="md" component="main">
           <Switch>
             <Route path="/survey/:survey_id" component={Survey} />
             <Route path="/" component={Main} />
           </Switch>
-        </Router>
-      </Container>
-      <Footer />
+        </Container>
+        <Footer />
+      </Router>
     </ThemeProvider>
   );
 };

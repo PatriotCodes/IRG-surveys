@@ -6,14 +6,18 @@ const CheckboxInput = ({ answers, onChange }) => {
 
   const handleChange = e => {
     setValue(e.target.value);
-    onChange(e.target.value);
+    onChange(answers.indexOf(e.target.value));
   };
 
   return (
     <FormControl>
       <FormGroup>
         {answers.map((answer, index) => (
-          <FormControlLabel key={index} control={<Checkbox color="primary" />} label={answer} />
+          <FormControlLabel
+            key={index}
+            control={<Checkbox color="primary" onChange={handleChange} value={answer} />}
+            label={answer}
+          />
         ))}
       </FormGroup>
     </FormControl>

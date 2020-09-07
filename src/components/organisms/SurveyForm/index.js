@@ -12,7 +12,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const SurveyForm = ({ survey, handleSubmit }) => {
+const SurveyForm = ({ survey, handleSubmit, onChange }) => {
   const classes = useStyles();
 
   const handleInputChange = val => {
@@ -35,7 +35,7 @@ const SurveyForm = ({ survey, handleSubmit }) => {
           answers={item.answer}
           title={item.text}
           additionalInfo={item.title}
-          onChange={handleInputChange}
+          onChange={val => onChange(val, index)}
         />
       ))}
       <Button variant="contained" color="primary" onClick={handleSubmit}>

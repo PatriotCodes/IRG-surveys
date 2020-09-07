@@ -6,7 +6,7 @@ const RadioInput = ({ answers, onChange }) => {
 
   const handleChange = e => {
     setValue(e.target.value);
-    onChange(e.target.value);
+    onChange(answers.indexOf(e.target.value));
   };
 
   return (

@@ -1,4 +1,5 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import logoSrc from '../../../assets/images/logo.png';
 import { AppBar, Toolbar, makeStyles, Typography, Box } from '@material-ui/core';
 
@@ -9,27 +10,25 @@ const useStyles = makeStyles(theme => ({
       height: theme.sizes.headerHeight,
       minHeight: theme.sizes.headerHeight,
     },
-    '& a': {
-      textDecoration: 'none!important',
-    },
   },
   textBox: {
     marginLeft: 8,
     '& > p': {
       fontSize: '0.8em',
       lineHeight: 1,
-      color: `${theme.palette.secondary.main}!important`,
+      color: theme.palette.secondary.main,
     },
   },
 }));
 
 const Header = () => {
-  const classes = useStyles();
+  const history = useHistory();
 
+  const classes = useStyles();
   return (
     <AppBar className={classes.header} component="header">
       <Toolbar>
-        <Box display="flex" component="a" href="/">
+        <Box display="flex" onClick={() => history.push('/')}>
           <img src={logoSrc} width={42} height={42} alt="IRG" />
           <Box className={classes.textBox}>
             <Typography>Independent</Typography>
