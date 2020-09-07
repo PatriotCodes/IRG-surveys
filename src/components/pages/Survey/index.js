@@ -5,28 +5,27 @@ import SurveyForm from '../../organisms/SurveyForm';
 import convertToIBMSPSS, { CHECKED, UNCHECKED } from '../../../utils/convertToIBMSPSS';
 import SuccessScreen from '../../atoms/SuccessScreen';
 
+let answerData = {};
+
 const Survey = ({ match }) => {
   const timeStart = Date.now();
   const [survey, setSurvey] = useState(null);
   const [submitted, setSubmitted] = useState(false);
-  const [answerData, setAnswerData] = useState(null);
 
   useEffect(() => {
     axios.get(`surveys.php?id=${match.params.survey_id}`).then(response => {
       setSurvey(response.data);
-      setAnswerData(
-        response.data.survey.map(q => ({
-          type: q.type,
-          answers: q.answer ? Array.from(Array(q.answer.length)).map(_ => UNCHECKED) : [],
-        })),
-      );
+      answerData = response.data.survey.map(q => ({
+        type: q.type,
+        answers: q.answer ? Array.from(Array(q.answer.length)).map(_ => UNCHECKED) : ['""'],
+      }));
     });
   }, []);
 
   const handleChange = (val, index) => {
     switch (answerData[index].type.toString()) {
       case '0':
-        setAnswerData({
+        answerData = {
           ...answerData,
           [index]: {
             ...answerData[index],
@@ -34,15 +33,14 @@ const Survey = ({ match }) => {
               index === val ? CHECKED : UNCHECKED,
             ),
           },
-        });
+        };
         break;
       case '1':
-        setAnswerData({
+        answerData = {
           ...answerData,
           [index]: {
             ...answerData[index],
             answers: answerData[index].answers.map((a, index) => {
-              console.log(val);
               if (index === val) {
                 return a === CHECKED ? UNCHECKED : CHECKED;
               } else {
@@ -50,53 +48,49 @@ const Survey = ({ match }) => {
               }
             }),
           },
-        });
+        };
         break;
       case '2':
-        setAnswerData({
+        answerData = {
           ...answerData,
           [index]: {
             ...answerData[index],
             answers: [val],
           },
-        });
+        };
         break;
     }
   };
 
   const onSubmit = () => {
-    // axios.post('results.php', {
-    //   survey_id: match.params.survey_id,
-    //   interviewer_id: 1,
-    //   time_start: timeStart,
-    //   time_finish: Date.now(),
-    //   location: {
-    //     latitude: null,
-    //     longitude: null,
-    //   },
-    //   audio: {
-    //     name: null,
-    //     binary: null,
-    //   },
-    //   result: answerData,
-    // });
-    console.log({
-      survey_id: match.params.survey_id,
-      interviewer_id: 1,
-      time_start: timeStart,
-      time_finish: Date.now(),
-      location: {
-        latitude: null,
-        longitude: null,
-      },
-      audio: {
-        name: null,
-        binary: null,
-      },
-      result: convertToIBMSPSS(answerData),
-    });
-    // setAnswerData({});
-    // setSubmitted(true);
+    axios
+      .post(
+        'results.php',
+        {
+          survey_id: match.params.survey_id,
+          interviewer_id: 13,
+          time_start: timeStart,
+          time_finish: Date.now(),
+          location: {
+            latitude: 0,
+            longitude: 0,
+          },
+          audio: {
+            name: 'audio',
+            binary: '',
+          },
+          result: convertToIBMSPSS(Object.values(answerData)),
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        },
+      )
+      .then(() => {
+        answerData = {};
+        setSubmitted(true);
+      });
   };
 
   return (

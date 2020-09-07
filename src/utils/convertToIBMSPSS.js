@@ -8,12 +8,12 @@ export default answers => {
   for (let i = 0; i < answers.length; i++) {
     const a = answers[i];
 
-    switch (a.type) {
-      case 0:
+    switch (a.type.toString()) {
+      case '0':
         for (let j = 0; j < a.answers.length; j++) {
           let checkedFlag = false;
           if (a.answers[j] === CHECKED) {
-            builder = builder.concat(`${j + 1}${SEP}`);
+            builder = builder.concat(`"${j + 1}"${SEP}`);
             checkedFlag = true;
           }
           if (j === a.answers.length < 1 && !checkedFlag) {
@@ -21,7 +21,7 @@ export default answers => {
           }
         }
         break;
-      case 1:
+      case '1':
         for (let j = 0; j < a.answers.length; j++) {
           if (a.answers[j] === CHECKED) {
             builder = builder.concat(`1${SEP}`);
@@ -30,7 +30,8 @@ export default answers => {
           }
         }
         break;
-      case 2:
+      case '2':
+        // TODO: wrap into "" when empty string
         builder = builder.concat(`${a.answers[0]}${SEP}`);
         break;
     }
