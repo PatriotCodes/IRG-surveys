@@ -1,5 +1,4 @@
 import React from 'react';
-import { useHistory } from 'react-router-dom';
 import logoSrc from '../../../assets/images/logo.png';
 import { AppBar, Toolbar, makeStyles, Typography, Box } from '@material-ui/core';
 
@@ -22,13 +21,11 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Header = () => {
-  const history = useHistory();
-
   const classes = useStyles();
   return (
     <AppBar className={classes.header} component="header">
       <Toolbar>
-        <Box display="flex" onClick={() => history.push('/')}>
+        <Box display="flex">
           <img src={logoSrc} width={42} height={42} alt="IRG" />
           <Box className={classes.textBox}>
             <Typography>Independent</Typography>
