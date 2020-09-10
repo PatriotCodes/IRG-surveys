@@ -18,12 +18,12 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const FormInputByType = ({ type, answers, onChange }) => {
+const FormInputByType = ({ type, answers, comments, onChange }) => {
   switch (type.toString()) {
     case FORM_INPUT_TYPES.radio:
-      return <RadioInput answers={answers} onChange={onChange} />;
+      return <RadioInput answers={answers} onChange={onChange} comments={comments} />;
     case FORM_INPUT_TYPES.checkbox:
-      return <CheckboxInput answers={answers} onChange={onChange} />;
+      return <CheckboxInput answers={answers} comments={comments} onChange={onChange} />;
     case FORM_INPUT_TYPES.text:
       return <TextInput onChange={onChange} />;
     default:
@@ -31,7 +31,7 @@ const FormInputByType = ({ type, answers, onChange }) => {
   }
 };
 
-const FormInput = ({ title, type, additionalInfo, answers, onChange }) => {
+const FormInput = ({ title, type, additionalInfo, answers, comments, onChange }) => {
   const classes = useStyles();
 
   return (
@@ -44,7 +44,7 @@ const FormInput = ({ title, type, additionalInfo, answers, onChange }) => {
               <Typography className={classes.additionalInfo}>{additionalInfo}</Typography>
             )}
           </Box>
-          <FormInputByType type={type} answers={answers} onChange={onChange} />
+          <FormInputByType type={type} answers={answers} comments={comments} onChange={onChange} />
         </Box>
       </Paper>
     </Box>

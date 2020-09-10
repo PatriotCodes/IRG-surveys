@@ -1,6 +1,6 @@
 {
-  "homepage": "http://patriotcodes.github.io/IRG-surveys",
-  "name": "irg-surveys",
+  "homepage": "https://www.irg.org.ua/web-form",
+  "name": "web-form",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

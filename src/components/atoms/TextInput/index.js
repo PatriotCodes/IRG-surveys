@@ -7,8 +7,8 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const TextInput = ({ onChange }) => {
-  const [value, setValue] = useState('');
+const TextInput = ({ initialValue = '', onChange }) => {
+  const [value, setValue] = useState(initialValue);
 
   const handleChange = e => {
     setValue(e.target.value);

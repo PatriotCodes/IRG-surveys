@@ -31,7 +31,8 @@ const SurveyForm = ({ survey, handleSubmit, onChange }) => {
           answers={item.answer}
           title={item.text}
           additionalInfo={item.title}
-          onChange={val => onChange(val, index)}
+          comments={item.comments}
+          onChange={(val, textVal) => onChange(val, index, textVal)}
         />
       ))}
       <Button variant="contained" color="primary" onClick={handleSubmit}>

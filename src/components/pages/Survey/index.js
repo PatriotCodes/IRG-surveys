@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from '../../../api/axios';
-import { INTERVIEWER_ID } from '../../../constants';
+import { FORM_INPUT_TYPES, INTERVIEWER_ID } from '../../../constants';
 import { LinearProgress } from '@material-ui/core';
 import SurveyForm from '../../organisms/SurveyForm';
 import convertToIBMSPSS, { CHECKED, UNCHECKED } from '../../../utils/convertToIBMSPSS';
@@ -21,29 +21,45 @@ const Survey = ({ match }) => {
         answers: q.answer ? Array.from(Array(q.answer.length)).map(_ => UNCHECKED) : [''],
       }));
     });
-  }, []);
+  }, []); // eslint-disable-line
 
-  const handleChange = (val, index) => {
+  const handleChange = (val, index, textVal) => {
+    // eslint-disable-next-line
     switch (answerData[index].type.toString()) {
-      case '0':
-        answerData = {
-          ...answerData,
-          [index]: {
-            ...answerData[index],
-            answers: answerData[index].answers.map((a, index) =>
-              index === val ? CHECKED : UNCHECKED,
-            ),
-          },
-        };
-        break;
-      case '1':
+      case FORM_INPUT_TYPES.radio:
         answerData = {
           ...answerData,
           [index]: {
             ...answerData[index],
             answers: answerData[index].answers.map((a, index) => {
               if (index === val) {
-                return a === CHECKED ? UNCHECKED : CHECKED;
+                if (textVal || textVal === '') {
+                  return textVal;
+                } else {
+                  return CHECKED;
+                }
+              } else {
+                return UNCHECKED;
+              }
+            }),
+          },
+        };
+        break;
+      case FORM_INPUT_TYPES.checkbox:
+        answerData = {
+          ...answerData,
+          [index]: {
+            ...answerData[index],
+            answers: answerData[index].answers.map((a, index) => {
+              if (index === val) {
+                if (textVal || textVal === '') {
+                  return textVal;
+                } else {
+                  if (a !== CHECKED && a !== UNCHECKED) {
+                    return UNCHECKED;
+                  }
+                  return a === CHECKED ? UNCHECKED : CHECKED;
+                }
               } else {
                 return a;
               }
@@ -51,7 +67,7 @@ const Survey = ({ match }) => {
           },
         };
         break;
-      case '2':
+      case FORM_INPUT_TYPES.text:
         answerData = {
           ...answerData,
           [index]: {
@@ -64,34 +80,36 @@ const Survey = ({ match }) => {
   };
 
   const onSubmit = () => {
-    axios
-      .post(
-        'results.php',
-        {
-          survey_id: match.params.survey_id,
-          interviewer_id: INTERVIEWER_ID,
-          time_start: timeStart,
-          time_finish: Date.now(),
-          location: {
-            latitude: 0,
-            longitude: 0,
-          },
-          audio: {
-            name: 'audio',
-            binary: '',
-          },
-          result: convertToIBMSPSS(Object.values(answerData)),
-        },
-        {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        },
-      )
-      .then(() => {
-        answerData = {};
-        setSubmitted(true);
-      });
+    console.log(answerData);
+    console.log(convertToIBMSPSS(Object.values(answerData)));
+    // axios
+    //   .post(
+    //     'results.php',
+    //     {
+    //       survey_id: match.params.survey_id,
+    //       interviewer_id: INTERVIEWER_ID,
+    //       time_start: timeStart,
+    //       time_finish: Date.now(),
+    //       location: {
+    //         latitude: 0,
+    //         longitude: 0,
+    //       },
+    //       audio: {
+    //         name: 'audio',
+    //         binary: '',
+    //       },
+    //       result: convertToIBMSPSS(Object.values(answerData)),
+    //     },
+    //     {
+    //       headers: {
+    //         'Content-Type': 'application/json',
+    //       },
+    //     },
+    //   )
+    //   .then(() => {
+    //     answerData = {};
+    //     setSubmitted(true);
+    //   });
   };
 
   return (
