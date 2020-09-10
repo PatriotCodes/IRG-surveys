@@ -13,6 +13,7 @@ const Survey = ({ match }) => {
   const [survey, setSurvey] = useState(null);
   const [submitted, setSubmitted] = useState(false);
   const [alreadySubmitted, setAlreadySubmitted] = useState(false);
+  const [surveyNotAvailable, setSurveyNotAvailable] = useState(false);
 
   useEffect(() => {
     const completed = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEYS.completedSurveys));
@@ -21,11 +22,17 @@ const Survey = ({ match }) => {
       setSubmitted(true);
     } else {
       axios.get(`surveys.php?id=${match.params.survey_id}`).then(response => {
-        setSurvey(response.data);
-        answerData = response.data.survey.map(q => ({
-          type: q.type,
-          answers: q.answer ? Array.from(Array(q.answer.length)).map(_ => UNCHECKED) : [''],
-        }));
+        // UGLY CHECK BECAUSE OF EVEN UGLIER BACK-END
+        if (response.data.message) {
+          setSurveyNotAvailable(true);
+          setSubmitted(true);
+        } else {
+          setSurvey(response.data);
+          answerData = response.data.survey.map(q => ({
+            type: q.type,
+            answers: q.answer ? Array.from(Array(q.answer.length)).map(_ => UNCHECKED) : [''],
+          }));
+        }
       });
     }
   }, []); // eslint-disable-line
@@ -136,7 +143,11 @@ const Survey = ({ match }) => {
         <SurveyForm survey={survey} handleSubmit={onSubmit} onChange={handleChange} />
       )}
       {submitted && (
-        <SuccessScreen onStartNew={() => setSubmitted(false)} alreadySubmitted={alreadySubmitted} />
+        <SuccessScreen
+          onStartNew={() => setSubmitted(false)}
+          alreadySubmitted={alreadySubmitted}
+          notAvailable={surveyNotAvailable}
+        />
       )}
     </>
   );
