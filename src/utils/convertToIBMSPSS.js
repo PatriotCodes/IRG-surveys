@@ -6,7 +6,6 @@ export const UNCHECKED = 0;
 
 export default answers => {
   let builder = '';
-  console.log(answers);
 
   for (let i = 0; i < answers.length; i++) {
     const a = answers[i];
