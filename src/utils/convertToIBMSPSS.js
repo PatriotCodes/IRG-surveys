@@ -34,10 +34,10 @@ export default answers => {
         break;
       case FORM_INPUT_TYPES.checkbox:
         for (let j = 0; j < a.answers.length; j++) {
-          if (a.answers[j] === CHECKED) {
-            builder = builder.concat(`${CHECKED}${SEP}`);
+          if (a.answers[j] === CHECKED || a.answers[j] === UNCHECKED) {
+            builder = builder.concat(`${a.answers[j]}${SEP}`);
           } else {
-            builder = builder.concat(`${UNCHECKED}${SEP}`);
+            builder = builder.concat(`"${a.answers[j]}"${SEP}`);
           }
         }
         break;

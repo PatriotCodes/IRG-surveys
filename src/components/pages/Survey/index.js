@@ -87,46 +87,48 @@ const Survey = ({ match }) => {
   };
 
   const onSubmit = () => {
-    axios
-      .post(
-        'results.php',
-        {
-          survey_id: match.params.survey_id,
-          interviewer_id: INTERVIEWER_ID,
-          time_start: timeStart,
-          time_finish: Date.now(),
-          location: {
-            latitude: 0,
-            longitude: 0,
-          },
-          audio: {
-            name: 'audio',
-            binary: '',
-          },
-          result: convertToIBMSPSS(Object.values(answerData)),
-        },
-        {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        },
-      )
-      .then(() => {
-        answerData = {};
-        setSubmitted(true);
-        const completedSurveys = localStorage.getItem(LOCAL_STORAGE_KEYS.completedSurveys);
-        if (completedSurveys) {
-          localStorage.setItem(
-            LOCAL_STORAGE_KEYS.completedSurveys,
-            JSON.stringify([...completedSurveys, match.params.survey_id]),
-          );
-        } else {
-          localStorage.setItem(
-            LOCAL_STORAGE_KEYS.completedSurveys,
-            JSON.stringify([match.params.survey_id]),
-          );
-        }
-      });
+    console.log(answerData);
+    console.log(convertToIBMSPSS(Object.values(answerData)));
+    // axios
+    //   .post(
+    //     'results.php',
+    //     {
+    //       survey_id: match.params.survey_id,
+    //       interviewer_id: INTERVIEWER_ID,
+    //       time_start: timeStart,
+    //       time_finish: Date.now(),
+    //       location: {
+    //         latitude: 0,
+    //         longitude: 0,
+    //       },
+    //       audio: {
+    //         name: 'audio',
+    //         binary: '',
+    //       },
+    //       result: convertToIBMSPSS(Object.values(answerData)),
+    //     },
+    //     {
+    //       headers: {
+    //         'Content-Type': 'application/json',
+    //       },
+    //     },
+    //   )
+    //   .then(() => {
+    //     answerData = {};
+    //     setSubmitted(true);
+    //     const completedSurveys = localStorage.getItem(LOCAL_STORAGE_KEYS.completedSurveys);
+    //     if (completedSurveys) {
+    //       localStorage.setItem(
+    //         LOCAL_STORAGE_KEYS.completedSurveys,
+    //         JSON.stringify([...completedSurveys, match.params.survey_id]),
+    //       );
+    //     } else {
+    //       localStorage.setItem(
+    //         LOCAL_STORAGE_KEYS.completedSurveys,
+    //         JSON.stringify([match.params.survey_id]),
+    //       );
+    //     }
+    //   });
   };
 
   return (
