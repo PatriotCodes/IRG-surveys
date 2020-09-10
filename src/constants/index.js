@@ -11,3 +11,7 @@ export const FORM_INPUT_TYPES = {
   checkbox: '1',
   text: '2',
 };
+
+export const LOCAL_STORAGE_KEYS = {
+  completedSurveys: 'completed_surveys',
+};

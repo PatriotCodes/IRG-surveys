@@ -20,7 +20,7 @@ const SurveyForm = ({ survey, handleSubmit, onChange }) => {
       <Paper variant="outlined">
         <Box p={2}>
           <Typography className={classes.surveyTitle} component="h2">
-            Опрос: {survey.title}
+            {survey.title}
           </Typography>
         </Box>
       </Paper>

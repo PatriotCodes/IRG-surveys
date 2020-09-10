@@ -29,7 +29,7 @@ const Main = () => {
         <Paper variant="outlined">
           <Box p={2}>
             <Box m="0 0 14px 0">
-              <Typography className={classes.title}>Опрос: {item.title}</Typography>
+              <Typography className={classes.title}>{item.title}</Typography>
             </Box>
             <Button
               variant="contained"

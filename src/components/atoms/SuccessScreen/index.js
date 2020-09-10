@@ -1,6 +1,6 @@
 import React from 'react';
-import { useHistory } from 'react-router-dom';
-import { Box, Typography, Button, makeStyles } from '@material-ui/core';
+// import { useHistory } from 'react-router-dom';
+import { Box, Typography, makeStyles } from '@material-ui/core';
 import DoneIcon from '@material-ui/icons/Done';
 
 const useStyles = makeStyles(theme => ({
@@ -21,8 +21,8 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const SuccessScreen = ({ onStartNew }) => {
-  const history = useHistory();
+const SuccessScreen = ({ onStartNew, alreadySubmitted }) => {
+  // const history = useHistory();
 
   const classes = useStyles();
   return (
@@ -34,20 +34,24 @@ const SuccessScreen = ({ onStartNew }) => {
       alignItems="center"
     >
       <DoneIcon />
-      <Typography component="h2">Ответ успешно записан</Typography>
-      <Box display="flex" flexDirection="column">
-        <Button
-          className={classes.button}
-          variant="contained"
-          color="primary"
-          onClick={() => history.push('/')}
-        >
-          Перейти к выбору опроса
-        </Button>
-        <Button className={classes.button} variant="contained" color="primary" onClick={onStartNew}>
-          Начать опрос заново
-        </Button>
-      </Box>
+      <Typography component="h2">
+        {alreadySubmitted
+          ? 'Ви вже приймали участь у даному опитуванні'
+          : 'Дякуємо за участь у опитуванні!'}
+      </Typography>
+      {/*<Box display="flex" flexDirection="column">*/}
+      {/*  <Button*/}
+      {/*    className={classes.button}*/}
+      {/*    variant="contained"*/}
+      {/*    color="primary"*/}
+      {/*    onClick={() => history.push('/')}*/}
+      {/*  >*/}
+      {/*    Перейти к выбору опроса*/}
+      {/*  </Button>*/}
+      {/*  <Button className={classes.button} variant="contained" color="primary" onClick={onStartNew}>*/}
+      {/*    Начать опрос заново*/}
+      {/*  </Button>*/}
+      {/*</Box>*/}
     </Box>
   );
 };
