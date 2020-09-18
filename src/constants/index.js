@@ -12,6 +12,8 @@ export const FORM_INPUT_TYPES = {
   text: '2',
 };
 
+export const QUESTIONS_ON_PAGE = 15;
+
 export const LOCAL_STORAGE_KEYS = {
   completedSurveys: 'completed_surveys',
 };
