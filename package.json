@@ -1,6 +1,6 @@
 {
-  "homepage": "https://www.irg.org.ua/web-form",
-  "name": "web-form",
+  "homepage": "https://www.irg.org.ua/new-post",
+  "name": "new-post",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

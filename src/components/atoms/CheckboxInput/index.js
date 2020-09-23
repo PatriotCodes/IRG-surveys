@@ -1,6 +1,14 @@
 import React, { useState } from 'react';
 import TextInput from '../TextInput';
-import { FormControl, FormGroup, FormControlLabel, Box, Checkbox } from '@material-ui/core';
+import {
+  FormControl,
+  FormGroup,
+  FormControlLabel,
+  Box,
+  Checkbox,
+  makeStyles,
+  FormHelperText,
+} from '@material-ui/core';
 
 const CommentInput = ({ index, answer, onChange }) => {
   const [showInput, setShowInput] = useState(false);
@@ -36,7 +44,16 @@ const CommentInput = ({ index, answer, onChange }) => {
   );
 };
 
-const CheckboxInput = ({ answers, comments, onChange }) => {
+const useStyles = makeStyles(() => ({
+  fieldSet: {
+    width: '100%',
+  },
+  formGroup: {
+    padding: '0 50px',
+  },
+}));
+
+const CheckboxInput = ({ answers, comments, onChange, hasError, showError }) => {
   const handleChange = e => {
     onChange(answers.indexOf(e.target.value));
   };
@@ -49,10 +66,16 @@ const CheckboxInput = ({ answers, comments, onChange }) => {
     }
   };
 
+  const classes = useStyles();
   return (
     <div>
-      <FormControl>
-        <FormGroup>
+      <FormControl
+        className={classes.fieldSet}
+        style={{ display: 'flex' }}
+        component="fieldset"
+        error={showError && hasError}
+      >
+        <FormGroup className={classes.formGroup}>
           {answers.map((answer, index) => (
             <React.Fragment key={index}>
               {comments && comments.includes(index + 1) ? (
@@ -67,6 +90,9 @@ const CheckboxInput = ({ answers, comments, onChange }) => {
             </React.Fragment>
           ))}
         </FormGroup>
+        {hasError && showError && (
+          <FormHelperText>Будь ласка переконайтеся, що обрана хоча б одна відповідь</FormHelperText>
+        )}
       </FormControl>
     </div>
   );

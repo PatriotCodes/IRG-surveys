@@ -24,6 +24,7 @@ const App = () => {
         <Header position="sticky" />
         <Container className={classes.root} maxWidth="md" component="main">
           <Switch>
+            {/*<Route path="/" component={Survey} />*/}
             <Route path="/survey/:survey_id" component={Survey} />
             {/*<Route path="/" component={Main} />*/}
           </Switch>

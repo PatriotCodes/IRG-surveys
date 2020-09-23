@@ -43,6 +43,15 @@ export default answers => {
       case FORM_INPUT_TYPES.text:
         builder = builder.concat(!a.answers[0] ? `""${SEP}` : `"${a.answers[0]}"${SEP}`);
         break;
+      case FORM_INPUT_TYPES.table:
+        for (let j = 0; j < a.answers.length; j++) {
+          for (let v = 0; v < a.answers[j].length; v++) {
+            if (parseInt(a.answers[j][v]) === CHECKED) {
+              builder = builder.concat(`"${v + 1}"${SEP}`);
+            }
+          }
+        }
+        break;
     }
   }
   return builder;
