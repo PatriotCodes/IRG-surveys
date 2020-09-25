@@ -38,7 +38,7 @@ const SuccessScreen = ({ onStartNew, alreadySubmitted, notAvailable }) => {
     text = 'На жаль дане опитування не знайдено або завершено';
   }
   if (alreadySubmitted) {
-    text = 'Ви вже приймали участь у даному опитуванні';
+    text = 'Ви вже брали участь у цьому опитуванні';
   }
 
   return (

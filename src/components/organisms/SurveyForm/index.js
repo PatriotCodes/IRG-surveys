@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import FormInput from '../../molecules/FormInput';
+import Text from '../../atoms/Text';
 import { paging } from '../../../constants/survey';
 import { Box, Typography, makeStyles, Paper, Button } from '@material-ui/core';
 
@@ -12,6 +13,9 @@ const useStyles = makeStyles(theme => ({
   },
   surveySubtitle: {
     padding: '15px 0',
+    '& > p:last-child': {
+      fontWeight: 'bold',
+    },
   },
   buttonContainer: {
     display: 'flex',
@@ -51,9 +55,9 @@ const SurveyForm = ({ survey, handleSubmit, onChange, errors }) => {
           <Typography className={classes.surveyTitle} component="h2">
             {survey.title}
           </Typography>
-          <Typography className={classes.surveySubtitle} component="p">
-            {survey.subtitle}
-          </Typography>
+          <Box className={classes.surveySubtitle}>
+            <Text className={classes.surveySubtitle} text={survey.subtitle} />
+          </Box>
         </Box>
       </Paper>
       {survey.survey
@@ -78,7 +82,7 @@ const SurveyForm = ({ survey, handleSubmit, onChange, errors }) => {
       <div className={classes.buttonContainer}>
         {showError && (
           <Typography className={classes.error}>
-            Будь ласка перевірте, що дана відповідь на кожне питання
+            Будь ласка, переконайтеся, що обрана хоча б одна відповідь на кожну фразу
           </Typography>
         )}
         {paging.length !== currentStep + 1 ? (
